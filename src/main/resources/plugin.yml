@@ -1,0 +1,7 @@
+name: GemBreak
+version: '${project.version}'
+main: me.superchirok1.gembreak.GemBreak
+api-version: '1.16'
+prefix: GemBreak
+authors: [SuperCHIROK1]
+description: GemBreak

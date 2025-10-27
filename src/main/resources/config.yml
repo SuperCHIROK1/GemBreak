@@ -1,0 +1,11 @@
+
+# config.yml
+# Материалы канала @ruspigotru
+enabled: true
+delay: true
+delay-ticks: 2
+
+blocks:
+  diamond_block:
+    item: DIAMOND
+    amount: 9
