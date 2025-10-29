@@ -1,11 +1,118 @@
-
-# config.yml
+#   _____          ___               __  
+#  / ___/__ __ _  / _ )_______ ___ _/ /__
+# / (_ / -_)  ' \/ _  / __/ -_) _ `/  '_/
+# \___/\__/_/_/_/____/_/  \__/\_,_/_/\_\ 
+#
 # Материалы канала @ruspigotru
-enabled: true
-delay: true
-delay-ticks: 2
+# Если возникнут проблемы с плагином,
+# можете написать в Telegram: @bordyer
 
+# Включить
+enabled: true
+# Задержка между дропом
+delay: true
+delay-ticks: 3
+
+messages:
+  no-perms: "&cУ Вас нет полномочий, чтобы выполнить данное действие"
+  reloaded: "&8[&b&lGemBreak&8] &aПлагин перезагружен"
+
+# ------------------------------------
+# 
+# blocks:
+#   <название блока>:
+#     vanilla-drop: <true/false>
+#     amount: <int>
+#     conditions:
+#       world: <string>
+#       biome: <string>
+#       time: <string> (<от>-<до>)
+#       y: <string> (<от>-<до>)
+#     particle:
+#       enabled: <true/false>
+#       id: <string>
+#       offset:
+#         x: <double>
+#         y: <double>
+#         z: <double>
+#       count: <int>
+#       extra: <double>
+#     sound:
+#       enabled: <true/false>
+#       id: <string>
+#       volume: <double>
+#       pitch: <double>
+#       location: <BLOCK/PLAYER> (BLOCK - позиция сломанного блока, PLAYER - позиция игрока, который сломал блок)
+#     item:
+#       material: <материал>
+#       name: <string>
+#       lore: <string-list>
+#
+# ------------------------------------
 blocks:
+  emerald_block:
+    vanilla-drop: false
+    particle:
+      enabled: true
+      id: COMPOSTER
+      offset:
+        x: 2
+        y: 2
+        z: 2
+      count: 30
+      extra: 0.3
+    sound:
+      enabled: true
+      id: entity.item.pickup
+      volume: 1
+      pitch: 1.4
+      location: BLOCK
+    item:
+      material: EMERALD
+      name: "&aИзумруд"
+      lore: []
+    amount: 9
+  gold_block:
+    vanilla-drop: false
+    particle:
+      enabled: true
+      id: FLAME
+      offset:
+        x: 0
+        y: 0
+        z: 0
+      count: 3
+      extra: 0.3
+    sound:
+      enabled: true
+      id: entity.item.pickup
+      volume: 1
+      pitch: 1.4
+      location: BLOCK
+    item:
+      material: GOLD_INGOT
+      name: "&eЗолотой слиток"
+      lore: []
+    amount: 9
   diamond_block:
-    item: DIAMOND
+    vanilla-drop: false
+    particle:
+      enabled: true
+      id: "SOUL_FIRE_FLAME"
+      offset:
+        x: 0
+        y: 0
+        z: 0
+      count: 3
+      extra: 0.3
+    sound:
+      enabled: true
+      id: entity.item.pickup
+      volume: 1
+      pitch: 1.4
+      location: BLOCK
+    item:
+      material: DIAMOND
+      name: "&bАлмаз"
+      lore: []
     amount: 9

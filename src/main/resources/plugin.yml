@@ -5,3 +5,12 @@ api-version: '1.16'
 prefix: GemBreak
 authors: [SuperCHIROK1]
 description: GemBreak
+
+commands:
+  gembreak:
+    aliases:
+    - gmplugin
+
+permissions:
+  gembreak.reload:
+    description: Перезагрузка плагина

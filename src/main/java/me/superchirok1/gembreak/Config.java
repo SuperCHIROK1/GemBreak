@@ -6,37 +6,45 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
-    // Плагин
     private final GemBreak pl;
 
     private final boolean enabled, delay;
     private final int delayTicks;
     private final ConfigurationSection blocks;
 
-    // Материалы канала @ruspigotru
+    private final String reloaded;
+    private final String noPerms;
+
+    public String getReloaded() {
+        return reloaded;
+    }
+
+    public String getNoPerms() {
+        return noPerms;
+    }
+
     public Config(GemBreak pl) {
         this.pl = pl;
-        // Подключаем конфиг
         FileConfiguration conf = pl.getConfig();
 
-        // Получаем данные из конфига
         this.enabled = conf.getBoolean("enabled");
         this.delay = conf.getBoolean("delay");
         this.delayTicks = conf.getInt("delay-ticks");
         this.blocks = conf.getConfigurationSection("blocks");
+
+        this.reloaded = conf.getString("messages.reloaded", "Перезагружен!");
+        this.noPerms = conf.getString("messages.no-perms", "Нет прав");
     }
 
-    // Геттеры (так сказать получатели)
     public boolean isEnabled() {return enabled;}
     public boolean isDelay() {return delay;}
     public int getDelayTicks() {return delayTicks;}
     public ConfigurationSection getBlocks() {return blocks;}
 
-    // Находиться ли блок в разделе blocks из конфига
     public boolean hasInBlocks(Material material) {
         return blocks != null && blocks.contains(material.name().toLowerCase());
     }
-    // Получить ConfigurationSection
+
     public ConfigurationSection getBlock(Material material) {
         if (hasInBlocks(material)) {
             return getBlocks().getConfigurationSection(material.name().toLowerCase());
