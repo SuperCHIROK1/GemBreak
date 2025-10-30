@@ -1,7 +1,9 @@
 package me.superchirok1.gembreak.particle;
 
+import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
+@Getter
 public class ParticleData {
 
     private final boolean enabled;
@@ -12,42 +14,14 @@ public class ParticleData {
     private final int count;
     private final double extra;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public double getOffsetX() {
-        return offsetX;
-    }
-
-    public double getOffsetY() {
-        return offsetY;
-    }
-
-    public double getOffsetZ() {
-        return offsetZ;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public double getExtra() {
-        return extra;
-    }
-
-    public ParticleData(ConfigurationSection s) {
-        this.enabled = s.getBoolean("enabled", false);
-        this.id = s.getString("id", "FLAME");
-        this.offsetX = s.getDouble("offset.x", 0);
-        this.offsetY = s.getDouble("offset.y", 0);
-        this.offsetZ = s.getDouble("offset.z", 0);
-        this.count = s.getInt("count", 10);
-        this.extra = s.getDouble("extra", 0);
+    public ParticleData(ConfigurationSection section) {
+        this.enabled = section.getBoolean("enabled", false);
+        this.id = section.getString("id", "FLAME");
+        this.offsetX = section.getDouble("offset.x", 0);
+        this.offsetY = section.getDouble("offset.y", 0);
+        this.offsetZ = section.getDouble("offset.z", 0);
+        this.count = section.getInt("count", 10);
+        this.extra = section.getDouble("extra", 0);
     }
 
 }

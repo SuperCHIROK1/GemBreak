@@ -47,6 +47,8 @@ messages:
 #       material: <материал>
 #       name: <string>
 #       lore: <string-list>
+#       enchants: <string-list> (в формате "зачар;уровень")
+#       flags: <string-list>
 #
 # ------------------------------------
 blocks:

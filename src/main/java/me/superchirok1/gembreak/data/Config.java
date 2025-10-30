@@ -1,9 +1,12 @@
-package me.superchirok1.gembreak;
+package me.superchirok1.gembreak.data;
 
+import lombok.Getter;
+import me.superchirok1.gembreak.GemBreak;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
+@Getter
 public class Config {
 
     private final GemBreak pl;
@@ -14,14 +17,6 @@ public class Config {
 
     private final String reloaded;
     private final String noPerms;
-
-    public String getReloaded() {
-        return reloaded;
-    }
-
-    public String getNoPerms() {
-        return noPerms;
-    }
 
     public Config(GemBreak pl) {
         this.pl = pl;
@@ -35,11 +30,6 @@ public class Config {
         this.reloaded = conf.getString("messages.reloaded", "Перезагружен!");
         this.noPerms = conf.getString("messages.no-perms", "Нет прав");
     }
-
-    public boolean isEnabled() {return enabled;}
-    public boolean isDelay() {return delay;}
-    public int getDelayTicks() {return delayTicks;}
-    public ConfigurationSection getBlocks() {return blocks;}
 
     public boolean hasInBlocks(Material material) {
         return blocks != null && blocks.contains(material.name().toLowerCase());

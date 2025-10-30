@@ -1,5 +1,7 @@
-package me.superchirok1.gembreak;
+package me.superchirok1.gembreak.command;
 
+import me.superchirok1.gembreak.data.Config;
+import me.superchirok1.gembreak.GemBreak;
 import me.superchirok1.gembreak.util.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

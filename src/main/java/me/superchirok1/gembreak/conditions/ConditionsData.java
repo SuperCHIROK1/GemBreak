@@ -1,7 +1,9 @@
 package me.superchirok1.gembreak.conditions;
 
+import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
+@Getter
 public class ConditionsData {
 
     private final String world;
@@ -9,25 +11,22 @@ public class ConditionsData {
     private final String time;
     private final String y;
 
-    public String getWorld() {
-        return world.isEmpty() ? null : world;
-    }
-    public String getBiome() {
-        return biome.isEmpty() ? null : biome;
-    }
-    public String getTime() {
-        return time.isEmpty() ? null : time;
-    }
-    public String getY() {
-        return y.isEmpty() ? null : y;
+    public ConditionsData(ConfigurationSection section) {
+        if (section == null) {
+            this.world = null;
+            this.biome = null;
+            this.time = null;
+            this.y = null;
+            return;
+        }
+
+        this.world = normalize(section.getString("world", ""));
+        this.biome = normalize(section.getString("biome", ""));
+        this.time = normalize(section.getString("time", ""));
+        this.y = normalize(section.getString("y", ""));
     }
 
-
-    public ConditionsData(ConfigurationSection s) {
-        this.world = s.getString("world", "");
-        this.biome = s.getString("biome", "");
-        this.time = s.getString("time", "");
-        this.y = s.getString("y", "");
+    private String normalize(String value) {
+        return (value == null || value.isEmpty()) ? null : value;
     }
-
 }

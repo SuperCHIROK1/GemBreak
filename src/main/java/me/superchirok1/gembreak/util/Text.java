@@ -17,11 +17,11 @@ public class Text {
         this.plugin = plugin;
     }
 
+    private static final Pattern PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
     public static String format(String message) {
         if (message == null) return "";
 
-        final Pattern hexPattern = Pattern.compile("&#([A-Fa-f0-9]{6})");
-        Matcher matcher = hexPattern.matcher(message);
+        Matcher matcher = PATTERN.matcher(message);
         StringBuffer buffer = new StringBuffer();
         while (matcher.find()) {
             String hex = matcher.group(1);

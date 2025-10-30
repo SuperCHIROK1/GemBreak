@@ -1,7 +1,10 @@
 package me.superchirok1.gembreak.sound;
 
+import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
 
+
+@Getter
 public class SoundData {
 
     private final boolean enabled;
@@ -10,32 +13,12 @@ public class SoundData {
     private final float pitch;
     private final String location;
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public float getVolume() {
-        return volume;
-    }
-
-    public float getPitch() {
-        return pitch;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public SoundData(ConfigurationSection s) {
-        this.enabled = s.getBoolean("enabled", false);
-        this.id = s.getString("id", "entity.item.pickup").toUpperCase().replace(".", "_");
-        this.volume = (float) s.getDouble("volume", 1);
-        this.pitch = (float) s.getDouble("pitch", 1);
-        this.location = s.getString("location", "BLOCK").toUpperCase();
+    public SoundData(ConfigurationSection section) {
+        this.enabled = section.getBoolean("enabled", false);
+        this.id = section.getString("id", "entity.item.pickup").toUpperCase().replace(".", "_");
+        this.volume = (float) section.getDouble("volume", 1);
+        this.pitch = (float) section.getDouble("pitch", 1);
+        this.location = section.getString("location", "BLOCK").toUpperCase();
     }
 
 }

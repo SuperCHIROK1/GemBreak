@@ -7,6 +7,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class ConditionChecker {
 
     public boolean check(ConditionsData data, BlockBreakEvent event) {
+        if (data == null) return true;
         Block block = event.getBlock();
 
         boolean world = true;

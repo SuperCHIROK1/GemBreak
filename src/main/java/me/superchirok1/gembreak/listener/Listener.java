@@ -1,5 +1,8 @@
-package me.superchirok1.gembreak;
+package me.superchirok1.gembreak.listener;
 
+import me.superchirok1.gembreak.data.BlockData;
+import me.superchirok1.gembreak.data.Config;
+import me.superchirok1.gembreak.GemBreak;
 import me.superchirok1.gembreak.conditions.ConditionChecker;
 import me.superchirok1.gembreak.conditions.ConditionsData;
 import me.superchirok1.gembreak.item.ItemBuilder;
@@ -10,9 +13,7 @@ import me.superchirok1.gembreak.sound.SoundData;
 import me.superchirok1.gembreak.sound.SoundPlay;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -36,11 +37,14 @@ public class Listener implements org.bukkit.event.Listener {
 
         BlockData blockData = new BlockData(data.getBlock(block.getType()));
 
-        if (blockData.getConditions() != null) {
-            if (!new ConditionChecker().check(new ConditionsData(blockData.getConditions()), e)) {
-                return;
-            }
+        ConditionsData conditionsData = (blockData.getConditions() == null)
+                ? null
+                : new ConditionsData(blockData.getConditions());
+
+        if (!new ConditionChecker().check(conditionsData, e)) {
+            return;
         }
+
 
         e.setDropItems(blockData.isVanillaDrop());
 
