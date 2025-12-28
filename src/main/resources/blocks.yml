@@ -1,0 +1,104 @@
+# Список действий:
+## [MESSAGE] <сообщение> - Отправка сообщений.
+## [ACTIONBAR] <сообщение> - Отправка сообщения на ActionBar игрока.
+## [BROADCAST] <сообщение> - Отправка сообщения всем игрокам на сервере.
+## [TITLE] <title> <subtitle> <?fade_in> <?stay> <?fade_out> - Отправка тайтла игроку.
+## [SOUND] <звук> <?громкость> <?питч> - Воспроизведение звука игроку.
+## [EXECUTE_CONSOLE] <команда> - Выполнение команды от имени консоли.
+## [EXECUTE_PLAYER] <команда> - Выполнение команды от имени игрока.
+## [PARTICLE] <id> <кол-во> <скорость> <?смещение-x> <?смещение-y> <?смещение-z>  - Спавн частиц на месте блока.
+## [CANCEL_VANILLA_DROP] - Отмена ванильного дропа.
+## [DROP_ITEM] <айди_предмета> - Выкинуть предмет
+## [CANCEL_EVENT] - Отмена события.
+
+# Доступные плейсхолдеры:
+## %player% - Ник игрока
+## %uuid% - UUID игрока
+## %world% - Мир
+## %block_x%, %block_y%, %block_z% - Координаты блока
+## %item% - Предмет в руке
+
+# Условия и их фишки.
+## Если перед префиксом поставить '!', то условие будет работать "наоборот".
+## Пример: Проверка пермишена: "permission: пермишен";
+##         Проверка на отсутствие пермишена: "!permission: пермишен"
+# Список доступных условий:
+## permission: <пермишен> - Есть ли у игрока пермишен (право).
+## location: <x> <y> <z> <world> - Проверка локации, где был сломан блок. Значения "x, y, z" поддерживают формат "от-до"
+## biome: <биом> - Проверка биома, где был сломан блок.
+## time: <от-до> - Проверка времени в мире.
+## gamemode: <режим-игры> - Проверка режима игры игрока.
+## sneaking: <true/false> - Крадется ли игрок. (на шифте)
+
+# Секция слушателей.
+listeners:
+  diamond_block: # Любое название.
+    # Работает слушатель?
+    enabled: true
+    # Айди блока.
+    block_id: diamond_block
+    # Условия
+    conditions:
+      - 'gamemode: survival'
+    # Действия, которые выполняются.
+    actions:
+      # Выполняются, если условия возвращают истину.
+      allow:
+        # Повтор действий.
+        repeat:
+          enabled: true # Работает повтор?
+          delay: 2 # Задержка между повтором.
+          amount: 9 # Сколько раз повторять.
+
+          # Действия, которые повторяются.
+          actions:
+            - '[PARTICLE] soul_fire_flame 10 0.05'
+            - '[DROP_ITEM] diamond'
+            - '[SOUND] entity.item.pickup'
+            - '[ACTIONBAR] <gray>(+1) <gradient:#FFD799:#F9FF99>Сломан Алмазный блок</gradient>'
+        # Список действий. (одноразовое)
+        actions:
+          - '[CANCEL_VANILLA_DROP]'
+          - '[BROADCAST] <reset>'
+          - '[BROADCAST] <reset> <#FFD799><b><u>┃</u></b>  <white>Игрок <#FFD799><b>%player%'
+          - '[BROADCAST] <reset> <#FFD799><b><u>┃</u></b>  <white>сломал <gradient:#FFD799:#F9FF99><bold>Алмазный блок</bold></gradient>'
+          - '[BROADCAST] <reset> <#FFD799><b><u>┃</u></b>'
+          - '[BROADCAST] <reset> <#FFD799><b>┃</b>  <white>Координаты: <gradient:#FFD799:#F9FF99>x: %block_x% y: %block_y% z: %block_z%</gradient>'
+          - '[BROADCAST] <reset>'
+      # Выполняются, если условия возвращают ложь.
+      deny:
+        actions:
+          - '[ACTIONBAR] <red>▶ Вы не в выживании. Перейдите в режим выживания.'
+          - '[SOUND] entity.villager.no'
+      # Выполняются перед проверкой условий.
+      always: []
+  emerald_block:
+    enabled: true
+    block_id: emerald_block
+    conditions:
+      - 'permission: gemblock.break'
+    actions:
+      allow:
+        repeat:
+          enabled: true
+          delay: 2
+          amount: 9
+
+          actions:
+            - '[PARTICLE] COMPOSTER 10 0.05 2 2 2'
+            - '[DROP_ITEM] emerald'
+            - '[SOUND] entity.item.pickup'
+            - '[ACTIONBAR] <gray>(+1) <gradient:#99FF9C:#99FFD2>Сломан Изумрудный блок</gradient>'
+        actions:
+          - '[CANCEL_VANILLA_DROP]'
+          - '[BROADCAST] <reset>'
+          - '[BROADCAST] <reset> <#99FF9C><b><u>┃</u></b>  <white>Игрок <#99FF9C><b>%player%'
+          - '[BROADCAST] <reset> <#99FF9C><b><u>┃</u></b>  <white>сломал <gradient:#99FF9C:#99FFD2><bold>Изумрудный блок</bold></gradient>'
+          - '[BROADCAST] <reset> <#99FF9C><b><u>┃</u></b>'
+          - '[BROADCAST] <reset> <#99FF9C><b>┃</b>  <white>Координаты: <gradient:#99FF9C:#99FFD2>x: %block_x% y: %block_y% z: %block_z%</gradient>'
+          - '[BROADCAST] <reset>'
+      deny:
+        actions:
+          - '[ACTIONBAR] <red>▶ У Вас нет прав, чтобы получить уникальный дроп'
+          - '[SOUND] entity.villager.no'
+      always: []

@@ -6,6 +6,9 @@ prefix: GemBreak
 authors: [SuperCHIROK1]
 description: GemBreak
 
+libraries:
+  - 'org.apache.commons:commons-text:1.11.0'
+
 commands:
   gembreak:
     aliases:

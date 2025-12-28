@@ -1,0 +1,16 @@
+package me.superchirok1.gembreak.condition.impl;
+
+import me.superchirok1.gembreak.condition.Condition;
+import org.bukkit.event.block.BlockBreakEvent;
+
+public class PermissionCondition implements Condition {
+    @Override
+    public String prefix() {
+        return "permission";
+    }
+
+    @Override
+    public boolean condition(String text, BlockBreakEvent event) {
+        return event.getPlayer().hasPermission(text);
+    }
+}
