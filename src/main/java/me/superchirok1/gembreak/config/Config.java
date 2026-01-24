@@ -1,6 +1,7 @@
 package me.superchirok1.gembreak.config;
 
 import me.superchirok1.gembreak.GemBreak;
+import me.superchirok1.gembreak.color.Colorizer;
 import me.superchirok1.gembreak.config.record.ConfigValues;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -32,7 +33,7 @@ public class Config {
 
     private String format(String text) {
         text = text.replace("%prefix%", prefix);
-        return plugin.colorizer.get.colorize(text);
+        return Colorizer.get.colorize(text);
     }
 
 }

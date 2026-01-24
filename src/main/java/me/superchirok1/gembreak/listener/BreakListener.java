@@ -3,15 +3,22 @@ package me.superchirok1.gembreak.listener;
 import me.superchirok1.gembreak.GemBreak;
 import me.superchirok1.gembreak.action.repeat.RepeatExecutor;
 import me.superchirok1.gembreak.model.GBlock;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.ItemDespawnEvent;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public class BreakListener implements Listener {
 
     private final GemBreak plugin;
+    private final Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
     public BreakListener(GemBreak plugin) {
         this.plugin = plugin;
@@ -42,8 +49,24 @@ public class BreakListener implements Listener {
     }
 
     @EventHandler
-    public void onInteract(EntityInteractEvent e) {
-
+    public void onPickup(EntityPickupItemEvent event) {
+        removeFromTeam(event.getItem());
     }
+
+    @EventHandler
+    public void onDespawn(ItemDespawnEvent event) {
+        removeFromTeam(event.getEntity());
+    }
+
+    private void removeFromTeam(Entity entity) {
+        if (!(entity instanceof Item)) return;
+
+        String entry = entity.getUniqueId().toString();
+        Team team = scoreboard.getEntryTeam(entry);
+        if (team != null && team.getName().startsWith("gb_")) {
+            team.removeEntry(entry);
+        }
+    }
+
 
 }

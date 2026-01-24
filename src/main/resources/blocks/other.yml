@@ -1,0 +1,14 @@
+listeners:
+  mystic_grass:
+    enabled: true
+    block_id: grass
+    conditions:
+      - 'item_in_hand: shears'
+      - 'chance: 20'
+    actions:
+      allow:
+        actions:
+          - '[DROP_ITEM] sun_flower'
+          - '[TITLE] "<yellow>Вы нашли цветок!" "<gray>Это было непросто" 10 40 20'
+          - '[SOUND] block.grass.break'
+          - '[EXECUTE_CONSOLE] exp give %player% 10'

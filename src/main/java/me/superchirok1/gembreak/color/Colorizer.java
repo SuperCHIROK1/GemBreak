@@ -5,7 +5,7 @@ import me.superchirok1.gembreak.color.impl.MiniMessageColorizerInterface;
 
 public class Colorizer {
 
-    public ColorizerInterface get;
+    public static ColorizerInterface get;
 
     public void init(String colorizer) {
         get = colorizer.equalsIgnoreCase("minimessage")

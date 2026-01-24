@@ -1,0 +1,14 @@
+listeners:
+  diamond_ore:
+    enabled: true
+    block_id: diamond_ore
+    conditions:
+      - 'gamemode: survival'
+    actions:
+      allow:
+        actions:
+          - '[CANCEL_EVENT]'
+          - '[SET_BLOCK] STONE'
+          - '[TITLE] "<gradient:#6EADFF:#0098FF>Вы получили Алмаз</gradient>" "<gray>Сломав Алмазную руду" 10 40 20'
+          - '[SOUND] entity_player_levelup 1 1.5'
+          - '[DROP_ITEM] diamond'

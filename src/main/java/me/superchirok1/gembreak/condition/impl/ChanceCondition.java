@@ -1,0 +1,19 @@
+package me.superchirok1.gembreak.condition.impl;
+
+import me.superchirok1.gembreak.condition.Condition;
+import org.bukkit.event.block.BlockBreakEvent;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class ChanceCondition implements Condition {
+    @Override
+    public String prefix() {
+        return "chance";
+    }
+
+    @Override
+    public boolean condition(String text, BlockBreakEvent event) {
+        int chance = Integer.parseInt(text);
+        return ThreadLocalRandom.current().nextInt(100) < chance;
+    }
+}

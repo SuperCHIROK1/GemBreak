@@ -2,6 +2,7 @@ package me.superchirok1.gembreak.action;
 
 import me.superchirok1.gembreak.GemBreak;
 import me.superchirok1.gembreak.action.impl.*;
+import me.superchirok1.gembreak.color.Colorizer;
 import me.superchirok1.gembreak.placeholder.EventPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,7 +32,7 @@ public class ActionProvider {
 
         if (items == null || items.isEmpty()) return;
 
-        var colorizer = pl.colorizer.get;
+        var colorizer = Colorizer.get;
 
         for (String item : items) {
             String prefix = item.substring(item.indexOf("[") + 1, item.indexOf("]")).toLowerCase();;
@@ -67,6 +68,7 @@ public class ActionProvider {
         register(new ParticleAction());
         register(new SoundAction());
         register(new TitleAction());
+        register(new SetBlockAction());
     }
 
 }

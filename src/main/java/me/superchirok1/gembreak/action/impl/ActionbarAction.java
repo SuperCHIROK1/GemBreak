@@ -3,6 +3,7 @@ package me.superchirok1.gembreak.action.impl;
 import me.superchirok1.gembreak.GemBreak;
 import me.superchirok1.gembreak.action.Action;
 import me.superchirok1.gembreak.placeholder.EventPlaceholder;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -17,6 +18,6 @@ public class ActionbarAction implements Action {
 
     @Override
     public void execute(String text, BlockBreakEvent event) {
-        event.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(text));
+        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(text));
     }
 }

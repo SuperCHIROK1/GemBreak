@@ -19,6 +19,8 @@ public class ConditionManager {
         register(new PermissionCondition());
         register(new GamemodeCondition());
         register(new SneakingCondition());
+        register(new ChanceCondition());
+        register(new ItemInHandCondition());
     }
 
     public void register(Condition condition) {

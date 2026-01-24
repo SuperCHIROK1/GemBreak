@@ -1,6 +1,8 @@
 package me.superchirok1.gembreak.item;
 
 import me.superchirok1.gembreak.GemBreak;
+import me.superchirok1.gembreak.color.Colorizer;
+import me.superchirok1.gembreak.model.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -9,7 +11,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,14 +20,14 @@ import java.util.Map;
 public class ItemService {
 
     private final GemBreak plugin;
-    public Map<String, ItemStack> items = new HashMap<>();
+    public Map<String, Item> items = new HashMap<>();
 
     public ItemService(GemBreak plugin) {
         this.plugin = plugin;
     }
 
     public void init() {
-        var colorizer = plugin.colorizer.get;
+        var colorizer = Colorizer.get;
 
         List<String> itemsFiles = plugin.config.get.itemsFiles();
 
@@ -59,11 +60,15 @@ public class ItemService {
                 List<String> itemEnchants = itemSec.getStringList("enchants");
                 List<String> itemFlags = itemSec.getStringList("flags");
                 int customModelData = itemSec.getInt("custom_model_data", 0);
+                boolean unbreakable = itemSec.getBoolean("unbreakable", false);
+                String glow = itemSec.getString("drop_params.glow", "none");
+                String displayName = itemSec.getString("drop_params.display_name", "");
 
                 ItemMeta meta = item.getItemMeta();
 
                 meta.setDisplayName(itemName);
                 meta.setLore(itemLore);
+                meta.setUnbreakable(unbreakable);
                 for (String itemEnchant : itemEnchants) {
                     String[] args = itemEnchant.split(" ");
 
@@ -90,7 +95,9 @@ public class ItemService {
 
                 item.setItemMeta(meta);
 
-                items.put(key, item);
+                items.put(key, new Item(
+                        item, glow, displayName
+                ));
 
             }
 
